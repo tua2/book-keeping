@@ -1,19 +1,34 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const dbConnect = require('./config/dbConnect');
+const User=require('./models/User');
+const usersRoute=require('./routes/usersRoute');
 const app = express();
 
 //DB connect
 dbConnect();
 
+//Passing body data
+app.use(express.json());
 
 //Routes
 //Users routes
+app.use('/api/users', usersRoute);
 
+/*
 //Register
-app.post('/api/users/register', (req, res)=>{
-    res.send('Register route');
+app.post('/api/users/register', async(req, res)=>{
+    try{
+        const {name, email, password}=req.body;
+        const user = await User.create({name, email, password});
+        //console.log(req.body);
+        console.log(user);
+        res.send(user);
+} catch(error){
+    console.log(error);
+}
 });
+
 
 //Login
 app.post('/api/users/login', (req,res)=>{
@@ -34,7 +49,8 @@ app.delete('/api/users/:id', (req,res)=>{
 app.get('/api/users', (req,res)=>{
     res.send('Fetch users');
 });
- 
+*/
+
 //Server
 const PORT = process.env.PORT || 5000;
 
