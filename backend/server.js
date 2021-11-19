@@ -1,8 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const dbConnect = require('./config/dbConnect');
-const User=require('./models/User');
-const usersRoute=require('./routes/usersRoute');
+const User = require('./models/User');
+const { usersRoute } = require('./routes/usersRoute');
 const app = express();
 
 //DB connect
@@ -54,7 +54,7 @@ app.get('/api/users', (req,res)=>{
 //Server
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, () =>{
+app.listen(PORT, () => {
     console.log(`Server is up and runing ${PORT}`);
 });
 
