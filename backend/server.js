@@ -1,9 +1,14 @@
 const express = require('express');
-const mongoose = require('mongoose');
+//const mongoose = require('mongoose');
+//const User = require('./models/User');
+const dotenv = require('dotenv');
+
 const dbConnect = require('./config/dbConnect');
-const User = require('./models/User');
 const { usersRoute } = require('./routes/usersRoute');
+const error=require('./middlewares/errorMiddlewareHandler');
 const app = express();
+
+dotenv.config();
 
 //DB connect
 dbConnect();
@@ -15,6 +20,10 @@ app.use(express.json());
 //Users routes
 app.use('/api/users', usersRoute);
 
+console.log(process.env);
+
+//Error middleware
+app.use(error.errorMiddlewareHandler);
 /*
 //Register
 app.post('/api/users/register', async(req, res)=>{

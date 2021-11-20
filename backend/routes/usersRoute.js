@@ -1,8 +1,29 @@
 const express = require('express');
+const asyncHandler = require('express-async-handler');
 const User = require('../models/User');
-// const asyncHandler = require('express-async-handler');
+const generateToken = require('../utils/generateToken');
+
 const usersRoute = express.Router();
 
+//Register
+usersRoute.post('/register', asyncHandler (async (req, res) => {
+    const {name, email, password}=req.body;
+
+    const userExists =  await User.findOne({email: email});
+    if(userExists){
+        throw new Error('User Exist');
+    }
+    const userCreated=await User.create({email, name, password});
+
+    res.json({
+        _id: userCreated._id,
+        name: userCreated.name,
+        password: userCreated.password,
+        email: userCreated.password,
+        token: generateToken(userCreated._id), //login using jwt(jsonwebtoken)
+    });
+}));
+/*
 //Register
 usersRoute.post('/register', async (req, res) => {
     try {
@@ -23,11 +44,33 @@ usersRoute.post('/register', async (req, res) => {
     }
 }
 );
+*/
 
 //Login
-usersRoute.post('/login', (req, res) => {
-    res.send('Login route');
-});
+usersRoute.post('/login', asyncHandler(async(req, res) => {
+    const{email, password}=req.body;
+
+    const user = await User.findOne({email});
+
+    if(user && (await user.isPasswordMatch(password))){
+        // set status code
+        res.status(200);
+
+        res.json({
+            _id: user._id,
+            name: user.name,
+            password: user.password,
+            email: user.password,
+            token: generateToken(user._id), //login using jwt(jsonwebtoken)
+        });
+        
+    }else {
+        res.status(401);
+        throw new Error('Invalid credentials');
+    
+    }
+
+}));
 
 //Update User
 usersRoute.put('/update', (req, res) => {
