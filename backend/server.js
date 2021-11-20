@@ -6,6 +6,7 @@ const dotenv = require('dotenv');
 const dbConnect = require('./config/dbConnect');
 const { usersRoute } = require('./routes/usersRoute');
 const error=require('./middlewares/errorMiddlewareHandler');
+const booksRoute = require('./routes/booksRoute');
 const app = express();
 
 dotenv.config();
@@ -19,6 +20,9 @@ app.use(express.json());
 //Routes
 //Users routes
 app.use('/api/users', usersRoute);
+
+//Books routes
+app.use('/api/books', booksRoute);
 
 console.log(process.env);
 

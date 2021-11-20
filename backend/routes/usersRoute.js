@@ -1,5 +1,6 @@
 const express = require('express');
 const asyncHandler = require('express-async-handler');
+const authMiddleware = require('../middlewares/authMiddleware');
 const User = require('../models/User');
 const generateToken = require('../utils/generateToken');
 
@@ -73,9 +74,26 @@ usersRoute.post('/login', asyncHandler(async(req, res) => {
 }));
 
 //Update User
-usersRoute.put('/update', (req, res) => {
-    res.send('Update Route');
-});
+usersRoute.put('/update', asyncHandler(async(req, res) => {
+    const user=await User.findById(req.user._id);
+
+    if(user){
+        user.name=req.body.name||user.name;
+        user.email=req.body.email||user.email;
+        if(req.body.password){
+            user.password=req.body.password||user.password;
+
+        }
+        const updatedUser=await user.save();
+
+        res.json({
+            _id: updatedUser._id,
+            name: updatedUser.name,
+            email: updatedUser.email,
+            token: generateToken(updatedUser._id),
+        });
+    }
+}));
 
 //Delete User
 usersRoute.delete('/:id', (req, res) => {
@@ -83,8 +101,9 @@ usersRoute.delete('/:id', (req, res) => {
 });
 
 //Fetch Users
-usersRoute.get('/', (req, res) => {
-    res.send('Fetch users');
+usersRoute.get('/', authMiddleware, (req, res) => {
+    console.log(req.headers);
+    res.send(req.user);
 });
 
 module.exports = { usersRoute };
