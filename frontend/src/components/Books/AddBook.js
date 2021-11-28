@@ -7,6 +7,7 @@ const AddBook = () => {
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
 
+
   //dispatch
   const dispatch = useDispatch();
 
@@ -22,6 +23,8 @@ const AddBook = () => {
     };
     dispatch(createBookAction(data));
   };
+  
+
   return (
     <div className='row container-height'>
       <div className='col-lg-6 col-md-6 m-auto'>
@@ -64,11 +67,11 @@ const AddBook = () => {
                           onChange={e => setCategory(e.target.value)}
                           className='custom-select'>
                           <option defaultValue='programming'>
-                            programming
+                            Programming
                           </option>
-                          <option value='religion'>Religion</option>
-                          <option value='life'>life</option>
-                          <option value='culture'>culture</option>
+                          <option value='hacking'>Hacking</option>
+                          <option value='web'>Web</option>
+                          <option value='startup'>Startup</option>
                         </select>
                       </div>
                       <div className='form-group'>

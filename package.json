@@ -7,12 +7,13 @@
     "start": "node backend/server.js",
     "server": "nodemon backend/server.js",
     "client": "npm start --prefix frontend",
-    "dev":"concurrently \"npm run server\" \"npm run client\""
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "author": "Tuan1606",
   "license": "MIT",
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "concurrently": "^6.4.0",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "express-async-handler": "^1.2.0",
