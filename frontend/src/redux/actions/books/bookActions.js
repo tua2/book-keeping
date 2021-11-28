@@ -6,7 +6,7 @@ import {
   FETCH_BOOK_FAIL,
   FETCH_BOOK_SUCCESS,
   FETCH_USERS_REQUEST,  
-} from '../actionTypes';
+} from '../books/actionTypes';
 
 const createBookAction = bookData => {
   return async dispatch => {
