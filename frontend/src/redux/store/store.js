@@ -9,7 +9,7 @@ const middlewares=[thunk];
 const reducer=combineReducers({
     bookCreated: createBookReducer,
     booksList: bookListReducer,
-    userLogin: userReducer,
+    userLogin: userReducer, //login/register
 });
 
 //Get user from localstorage & save it into store

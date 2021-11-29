@@ -24,7 +24,7 @@ app.use('/api/users', usersRoute);
 //Books routes
 app.use('/api/books', booksRoute);
 
-console.log(process.env);
+//console.log(process.env);
 
 //Error middleware
 app.use(error.errorMiddlewareHandler);

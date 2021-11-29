@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { registerUserAction } from '../../redux/actions/users/usersAction';
 
-const RegisterUser = () => {
+const RegisterUser = ({history}) => {
     const[name, setName] = useState('');
     const[email, setEmail] = useState('');
     const[password, setPassword] = useState('');
@@ -19,7 +19,7 @@ useEffect(()=>{
     if(userInfo){
         history.push('/dashboard');
     }
-}, [userInfo])
+}, [userInfo]);
 
     const formSubmitHandler=e=>{
         e.preventDefault();

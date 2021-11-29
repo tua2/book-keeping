@@ -1,6 +1,21 @@
-import React from 'react';
-
+import React, {useEffect} from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchBooksAction } from '../../redux/actions/books/bookActions';
+import Loading from '../Loading/Loading';
 const Books = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    //dispatch action
+    dispatch(fetchBooksAction());
+  }, [dispatch]);
+
+  //GRAB THE DATA FROM STORE
+  const { books, loading } = useSelector(state => {
+    return state.booksList;
+  });
+  console.log(books);
+  console.log(loading);
   return (
     <div>
       <div className='row'>
@@ -15,25 +30,44 @@ const Books = () => {
               </tr>
             </thead>
             <tbody>
-              {/* Map through here */}
-              <tr className='table-dark'>
-                <th scope='row'>title</th>
-                <td>author</td>
-                <td>
-                  <i
-                    className='fas fa-trash '
-                    style={{ color: 'red', cursor: 'progress' }}></i>
-                </td>
-                <td>
-                  <i
-                    className='far fa-edit'
-                    style={{
-                      color: 'yellow',
-                      cursor: 'progress',
-                    }}></i>
-                </td>
-              </tr>
-              {/* End of map through */}
+            {loading ? (
+                <Loading />
+              ) : (
+                <>
+                  {books &&
+                    books.map(book => {
+                      return (
+                        <>
+                          {/* Map through here */}
+                          <tr className='table-dark'>
+                            <th scope='row'>{book.title}</th>
+                            <td>{book.author}</td>
+                            <td>
+                              <i
+                                className='fas fa-trash '
+                                style={{
+                                  color: 'red',
+                                  cursor: 'progress',
+                                }}></i>
+                            </td>
+                            <td>
+                              <i
+                                className='far fa-edit'
+                                style={{
+                                  color: 'yellow',
+                                  cursor: 'progress',
+                                }}></i>
+                            </td>
+                          </tr>
+                          {/* End of map through */}
+                        </>
+                      );
+                    })}
+                </>
+              )}
+            
+
+
             </tbody>
           </table>
         </div>
@@ -43,3 +77,23 @@ const Books = () => {
 };
 
 export default Books;
+/*
+ // Map through here 
+ <tr className='table-dark'>
+ <th scope='row'>title</th>
+ <td>author</td>
+ <td>
+   <i
+     className='fas fa-trash '
+     style={{ color: 'red', cursor: 'progress' }}></i>
+ </td>
+ <td>
+   <i
+     className='far fa-edit'
+     style={{
+       color: 'yellow',
+       cursor: 'progress',
+     }}></i>
+ </td>
+</tr>
+//End of map through */
