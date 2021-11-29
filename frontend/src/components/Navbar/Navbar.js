@@ -53,7 +53,7 @@ const Navbar = props => {
                   </Link>
                 </li>
               </>
-            ) : (
+             ) : (
               <>
                 <li className='nav-item'>
                   <Link className='nav-link' to='/books'>
@@ -67,10 +67,17 @@ const Navbar = props => {
                 </li>
 
                 <li className='nav-item'>
-                  <a className='nav-link' to='/users'>
+                  <Link className='nav-link' to='/users'>
                     Users
-                  </a>
+                  </Link>
+                  
+                </li>
 
+                <li className='nav-item'>
+                  <Link className='nav-link' to='/profile'>
+                    Profile
+                  </Link>
+                  
                 </li>
                 <li className='nav-item'>
                   <Link onClick={logoutHandler} className='nav-link' to='/login'>

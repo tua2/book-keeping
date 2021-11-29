@@ -9,6 +9,7 @@ import RegisterUser from './components/Users/RegisterUser';
 import LoginUSer from './components/Users/LoginUser';
 import Home from './components/Home/Home';
 import Profile from './components/Profile/Profile';
+import UpdateProfile from './components/Profile/UpdateProfile';
 function App() {
   return (
    <>
@@ -18,6 +19,7 @@ function App() {
 
      <Route exact path='/' component={Home}/>
      <Route exact path='/profile' component={Profile}/>
+     <Route exact path='/user-update' component={UpdateProfile}/>
      <Route exact path='/login' component={LoginUSer}/>
        <Route exact path='/books' component={Books}/>
          <Route exact path='/addbook' component={AddBook}/>

@@ -23,8 +23,8 @@ const Books = () => {
           <table className='table table-hover'>
             <thead>
               <tr>
-                <th scope='col'>Author</th>
                 <th scope='col'>Book Name</th>
+                <th scope='col'>Author</th>
                 <th scope='col'>Action</th>
                 <th scope='col'>Action</th>
               </tr>

@@ -74,7 +74,8 @@ usersRoute.post('/login', asyncHandler(async(req, res) => {
 }));
 
 //Update User
-usersRoute.put('/update', asyncHandler(async(req, res) => {
+usersRoute.put('/profile/update', asyncHandler(async(req, res) => {
+    //find login user by ID
     const user=await User.findById(req.user._id);
 
     if(user){
@@ -101,9 +102,29 @@ usersRoute.delete('/:id', (req, res) => {
 });
 
 //Fetch Users
-usersRoute.get('/', authMiddleware, (req, res) => {
-    console.log(req.headers);
-    res.send(req.user);
-});
+usersRoute.get('/', authMiddleware, asyncHandler(async(req, res) => {
+    const users=await User.find({});
+
+    if(users){
+        res.status(200).json(users);
+    }else{
+        res.status(500);
+        throw new Error('No users found at the moment');
+    }
+}));
+
+//Profile route
+usersRoute.get('/profile', authMiddleware, asyncHandler(async(req, res)=> {
+    try {
+        const user=await User.findById(req.user._id).populate('books');
+
+        if(!user) throw new Error('You do not have any profile yet');
+        res.status(200);
+        res.send(user);
+    } catch (error) {
+        res.status(500);
+        throw new Error('Server');
+    }
+}));
 
 module.exports = { usersRoute };

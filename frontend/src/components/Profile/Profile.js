@@ -27,8 +27,8 @@ const Profile = ({ history }) => {
       <table className='table table-hover'>
         <thead>
           <tr>
-            <th scope='col'>Author</th>
             <th scope='col'>Book Name</th>
+            <th scope='col'>Author</th>
             <th scope='col'>Delete</th>
             <th scope='col'>Update</th>
           </tr>
